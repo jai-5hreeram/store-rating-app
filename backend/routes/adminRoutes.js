@@ -59,6 +59,12 @@ router.post('/users', async (req, res) => {
             });
         }
 
+        if (!userAddress) {
+            return res.status(400).json({
+                message: 'Address cannot be empty'
+            });
+        }
+
         if (userAddress.length > 400) {
             return res.status(400).json({
                 message: 'Address cannot exceed 400 characters'
@@ -128,6 +134,13 @@ router.post('/stores', async (req, res) => {
                 message: 'Store name, email and address are required'
             });
         }
+
+        if (!name.trim() || !address.trim()) {
+            return res.status(400).json({
+                message: 'Store name and address cannot be empty'
+            });
+        }
+
 
         if (name.trim().length > 100 || address.trim().length > 400) {
             return res.status(400).json({
@@ -233,7 +246,7 @@ router.get('/users', async (req, res) => {
         };
 
         const sortColumn = sortColumns[sortBy] || 'name';
-        const sortOrder = order === 'desc' ? 'DESC' : 'ASC';
+        const sortOrder = order && order.toLowerCase() === 'desc' ? 'DESC' : 'ASC';
 
         sql += ` ORDER BY ${sortColumn} ${sortOrder}`;
 
@@ -294,7 +307,7 @@ router.get('/stores', async (req, res) => {
         };
 
         const sortColumn = sortColumns[sortBy] || 's.name';
-        const sortOrder = order === 'desc' ? 'DESC' : 'ASC';
+        const sortOrder = order && order.toLowerCase() === 'desc' ? 'DESC' : 'ASC';
 
         sql += ` ORDER BY ${sortColumn} ${sortOrder}`;
 
