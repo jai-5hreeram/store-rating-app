@@ -78,7 +78,7 @@ store-rating-app/
 ### 1. Clone the repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/jai-5hreeram/store-rating-app.git
 cd store-rating-app
 ```
 
